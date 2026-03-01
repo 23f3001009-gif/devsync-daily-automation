@@ -1,5 +1,6 @@
 name: Daily Repository Update
-
+permissions:
+  contents: write
 on:
   schedule:
     - cron: '23 4 * * *'   # Runs daily at 04:23 UTC (specific time, no wildcards)
