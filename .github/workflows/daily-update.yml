@@ -1,0 +1,27 @@
+name: Daily Repository Update
+
+on:
+  schedule:
+    - cron: '23 4 * * *'   # Runs daily at 04:23 UTC (specific time, no wildcards)
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 23f3001009@ds.study.iitm.ac.in - Daily Automation Step
+        run: echo "Workflow triggered at $(date)" > daily-log.txt
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "DevSync Bot"
+          git config --global user.email "23f3001009@ds.study.iitm.ac.in"
+          git add daily-log.txt
+          git commit -m "Automated daily commit $(date)" || echo "Nothing to commit"
+
+      - name: Push changes
+        run: git push
